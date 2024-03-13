@@ -69,24 +69,14 @@ Function Launch {
         attrib +s +h $attribute
     }
     cls
-    Write-Host "1. Normal"
-    Write-Host "2. Masked"
-    Write-Host "3. NtAuth"
-    Write-Host ""
-
-    $choice = Read-Host "Select Launch Variant (1-3)"
-    if ($choice -eq "1") {
-        Start-Process $normal
-    } elseif ($choice -eq "2") {
+    
+    
         Start-Process $maskbat
-    } elseif ($choice -eq "3") {
-        Start-Process $authbat
-    } else {
-        Write-Host "Invalid choice. Please enter a number between 1 and 3."
-        Start-Sleep -Seconds 2
+
         Remove-Item -Path "$env:TMP\wtmpd" -Recurse -Force
         return
     }
+    
     cleanup
     exit
 }
