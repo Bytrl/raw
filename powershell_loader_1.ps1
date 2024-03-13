@@ -1,4 +1,4 @@
-
+#added this line to test
 function Test-Admin {
 		$currentUser = New-Object Security.Principal.WindowsPrincipal $([Security.Principal.WindowsIdentity]::GetCurrent())
 		$adminRole = [Security.Principal.WindowsBuiltInRole]::Administrator
