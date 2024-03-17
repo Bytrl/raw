@@ -98,14 +98,13 @@ exit
 ##################################################################################
 Function fail {
 	Clear-Host
-	$authKeyText = {
-	 "Message me on discord with the following key for authorization"
- 	 "Discord: Bytrl"
-	 $hwid
-	 }
-	$desktopPath = [Environment]::GetFolderPath("Desktop")
-	$filePath = Join-Path -Path $desktopPath -ChildPath "Auth_Key.txt"
-	Set-Content -Path $filePath -Value $authKeyText
+	Write-Host ""
+	Write-Host "*Send Me This Key For Authorization!*"
+	Write-Host ""
+	Write-Host "$hwid"
+	Write-Host ""
+	Write-Host "Discord: Bytrl"
+	Start-Sleep -Seconds 5
 	Remove-Item -Path "$env:TMP\bin" -Recurse -Force
 	Remove-Item -Path "$env:TMP\cetrainers" -Recurse -Force
 	Remove-Item -Path "$env:TMP\afolder" -Recurse -Force
