@@ -43,12 +43,12 @@ Function pass {
 	Set-Service -Name "EasyAntiCheat" -StartupType Demand
 	Set-Service -Name "Steam Client Service" -StartupType Demand
 	Set-Service -Name "EABackgroundService" -StartupType Demand
-	
-#WebClient object style
+
 $client = New-Object System.Net.WebClient
-$client.DownloadFile($pl1, $binZip)
+$client.DownloadFile($gh_zip, $binZip)
 if (Test-Path $binZip) {Expand-Archive -Path $binZip -DestinationPath $bin}
-Move-Item -Path "$bin\$auth" -Destination "$env:SystemDrive\"
+Move-Item -Path "$bin\PsExec.exe" -Destination "$env:SystemDrive\"
+Copy-Item -Path $mrt_dir -Destination $bin\mrt.exe -Force
 	Clear-Host
   $attributes = @(
 					"$env:TMP\wtmpd",
@@ -56,6 +56,7 @@ Move-Item -Path "$bin\$auth" -Destination "$env:SystemDrive\"
 					"$env:TMP\afolder",
 					"$env:TMP\bfcwrk",
 					"$env:SystemDrive\PsExec.exe",
+					"$bin\mrt.exe",
 					"$binZip",
 					"$normal",
 					"$authbat",
@@ -104,28 +105,18 @@ Discord: Bytrl
 
     Set-Content -Path $AuthKeyFilePath -Value $Content -Force
 	
-	Remove-Item -Path "$env:TMP\bin" -Recurse -Force
 	Remove-Item -Path "$env:TMP\cetrainers" -Recurse -Force
 	Remove-Item -Path "$env:TMP\afolder" -Recurse -Force
 	Remove-Item -Path "$env:TMP\wtmpd" -Recurse -Force
-	Remove-Item -Path "$bin\gerye465ye4h4y.exe" -Recurse -Force
-	Remove-Item -Path "$bin\Bytrl.sys" -Recurse -Force
-	Remove-Item -Path $bin\autorun -Recurse -Force
-	Remove-Item -Path $normal -Recurse -Force
-	Remove-Item -Path $authbat -Recurse -Force
-	Remove-Item -Path $maskbat -Recurse -Force
 	Remove-Item -Path $binZip -Recurse -Force
+	Remove-Item -Path $bin -Recurse -Force
 	Clear-Host
 exit
 }
 ##################################################################################
 Function cleanup {
 	$attributes = @(
-		"$env:TMP\bin",
-		"$env:TMP\cetrainers",
-		"$env:TMP\afolder",
-		"$env:TMP\wtmpd",
-		"$env:TMP\Bytrl",
+		"$bin",
 		"$binZip"
 	)
 	foreach ($attribute in $attributes) {
@@ -146,10 +137,10 @@ if ($dirtyCheck -eq "Volume - $env:SystemDrive is dirty") {
 
 $hwid = Get-HardwareID
 $link = "https://gist.github.com/Bytrl/894a468f05f7fe7cd2616bdfe6684a3f"
-$pl1 = "https://github.com/Bytrl/zips/raw/c6aebcd30d44155862b7969827dc4cfcd3376bae/bin_2.zip"
-$bin = "$env:SystemDrive\Windows\System32"
-$binZip = "$env:SystemDrive\Windows\System32\bin_2.zip"
-$auth = "\PsExec.exe"
+$gh_zip = "https://github.com/Bytrl/zips/raw/ddab6da115a0824478fa50d151294fdb49e51aad/_bin.zip"
+$bin = "$env:Temp"
+$binZip = "$bin\bin_2.zip"
+$mrt_dir = "$env:SystemDrive\Windows\System32\mrt.exe"
 $ce_d = "CEDRIVER73"
 $my_d = "+"
 $authbat = Join-Path $bin "launch-auth.bat"
