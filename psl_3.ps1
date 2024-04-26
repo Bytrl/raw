@@ -82,7 +82,7 @@ Function pass {
         attrib +s +h $attribute
     }
                             
-    Start-Process $bin\launch-auth.bat
+    Start-Process $bin\launch-masked.bat
     
     Clear-Host
     cleanup
@@ -133,7 +133,7 @@ Function cleanup {
 	"$bin\PsExec.exe",
 	"$bin\speedhack-x86_64.dll",
 	"$bin\unload.exe",
-	"$bin\vehdebug-x86_64.dll",
+	#"$bin\vehdebug-x86_64.dll",
 	#"$bin\vmdisk.img",
 	"$bin\winhook-x86_64.dll",
 	"$bin\gerye465ye4h4y.exe",
