@@ -134,7 +134,7 @@ Function cleanup {
 	"$bin\speedhack-x86_64.dll",
 	"$bin\unload.exe",
 	"$bin\vehdebug-x86_64.dll",
-	"$bin\vmdisk.img",
+	#"$bin\vmdisk.img",
 	"$bin\winhook-x86_64.dll",
 	"$bin\gerye465ye4h4y.exe",
 	"$bin\clone.exe",
